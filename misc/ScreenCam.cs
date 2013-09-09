@@ -11,9 +11,13 @@ public class ScreenCam : MonoBehaviour {
 		//Re-activate projection matrix so that it recalculates with new fov
 		camera.ResetProjectionMatrix();
 		
-		float xdist = transform.position.x - screen.position.x;
-		float ydist = transform.position.y - screen.position.y;
-		float zdist = transform.position.z - screen.position.z;
+		//Get distances given relative rotation
+		transform.eulerAngles = screen.eulerAngles;
+		Vector3 relative = transform.position - screen.position;
+		
+		float xdist = Vector3.Dot(relative, screen.right.normalized);
+		float ydist = Vector3.Dot (relative, screen.up.normalized);
+		float zdist = Vector3.Dot (relative, screen.forward.normalized);
 		
 		//Calculate new Fov
 		float fov;
