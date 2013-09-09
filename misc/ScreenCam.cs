@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class AutoFov : MonoBehaviour {
+public class ScreenCam : MonoBehaviour {
 	//public Transform target;
 	public float width = 16f;
 	public float height = 9f;
