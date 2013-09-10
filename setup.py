@@ -28,10 +28,14 @@ def moveSDL2windowDLL():
 		shutil.copy(os.path.join(current, "DLL_Files", "SDL2.dll"), SDL2path)
 
 	#Copy sdl2window.dll to the plugins folder
-	pluginPath = os.path.join(unityRoot, "Assets", "Plugins", "sdl2window.dll")
-	if not os.path.isfile(pluginPath) or \
-		os.path.getmtime(storedDLLpath) > os.path.getmtime(pluginPath):
-		shutil.copy(storedDLLpath, pluginPath)
+	pluginPath = os.path.join(unityRoot, "Assets", "Plugins")
+	if not os.path.isfile(pluginPath):
+		os.makedirs(pluginPath)
+
+	pluginDllPath = os.path.join(unityRoot, "Assets", "Plugins", "sdl2window.dll")
+	if not os.path.isfile(pluginDllPath) or \
+		os.path.getmtime(storedDLLpath) > os.path.getmtime(pluginDllPath):
+		shutil.copy(storedDLLpath, pluginDllPath)
 
 if __name__ == "__main__":
 	moveSDL2windowDLL()
