@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+[ExecuteInEditMode]
 public class ScreenCam : MonoBehaviour {
 	//public Transform target;
 	public float width = 16f;
