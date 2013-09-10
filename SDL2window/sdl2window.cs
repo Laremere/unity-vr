@@ -37,10 +37,15 @@ public class sdl2window : MonoBehaviour {
 		}
 		
 		for (int i = 0; i < Cameras.Length; i++){
-			Cameras[i].camera.targetTexture = new RenderTexture(getWidth(), getHeight(), 16, RenderTextureFormat.ARGB32);
-			Cameras[i].camera.targetTexture = new RenderTexture(1024, 1024, 16, RenderTextureFormat.ARGB32);
+			Rect view = Cameras[i].camera.rect;
+			int width =  (int) ( ((float)getWidth ()) * view.width );
+			int height = (int) ( ((float)getHeight()) * view.height);
+			
+			Cameras[i].camera.targetTexture = new RenderTexture(width, height, 16, RenderTextureFormat.ARGB32);
 			Cameras[i].camera.targetTexture.Create();
-			addCamera (Cameras[i].camera.targetTexture.GetNativeTextureID(), CameraModes[i], 0f, 0f, 1f, 1f, winRef);
+			addCamera (Cameras[i].camera.targetTexture.GetNativeTextureID(), CameraModes[i], view.x, view.y, view.width, view.height, winRef);
+			
+			Cameras[i].camera.rect = new Rect(0,0,1,1);
 		}
 		
 		while (enabled){
