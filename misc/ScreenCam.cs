@@ -13,7 +13,9 @@ public class ScreenCam : MonoBehaviour {
 		camera.ResetProjectionMatrix();
 		
 		//Get distances given relative rotation
-		transform.eulerAngles = screen.eulerAngles;
+		if (transform.eulerAngles != screen.eulerAngles) {
+			transform.eulerAngles = screen.eulerAngles;
+		}
 		Vector3 relative = transform.position - screen.position;
 		
 		float xdist = Vector3.Dot(relative, screen.right.normalized);
@@ -25,7 +27,9 @@ public class ScreenCam : MonoBehaviour {
 		float distance;
 		distance =  (float) Mathf.Abs (zdist);
 		fov =  2 * Mathf.Atan(height * 0.5f / distance) * Mathf.Rad2Deg;
-		camera.fieldOfView = fov;	
+		if (camera.fieldOfView != fov) {
+			camera.fieldOfView = fov;	
+		}
 		
 		//Set obliqueness
 		Matrix4x4 mat = camera.projectionMatrix;
