@@ -22,8 +22,10 @@ public class sdl2window : MonoBehaviour {
 	private static extern void addCamera (int textureID, CamMode mode, float x, float y, float w, float h, long win);
 	
 	public enum CamMode {Left = 0, Right = 1, Both = 2};
+	public enum Mode3d {Active = 0, SideBySide = 1};
 	
 	public int Display_Number;
+	public Mode3d Display_3d_Type;
 	public Transform[] Cameras;
 	public CamMode[] CameraModes;
 	
@@ -40,10 +42,15 @@ public class sdl2window : MonoBehaviour {
 			Rect view = Cameras[i].camera.rect;
 			int width =  (int) ( ((float)getWidth ()) * view.width );
 			int height = (int) ( ((float)getHeight()) * view.height);
+			CamMode curMode = CameraModes[i];
+			
+			if (Display_3d_Type == Mode3d.SideBySide && curMode != CamMode.Both){
+				width /= 2;
+			}
 			
 			Cameras[i].camera.targetTexture = new RenderTexture(width, height, 16, RenderTextureFormat.ARGB32);
 			Cameras[i].camera.targetTexture.Create();
-			addCamera (Cameras[i].camera.targetTexture.GetNativeTextureID(), CameraModes[i], view.x, view.y, view.width, view.height, winRef);
+			addCamera (Cameras[i].camera.targetTexture.GetNativeTextureID(), curMode, view.x, view.y, view.width, view.height, winRef);
 			
 			Cameras[i].camera.rect = new Rect(0,0,1,1);
 		}
