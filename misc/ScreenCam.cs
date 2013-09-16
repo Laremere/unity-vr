@@ -32,6 +32,10 @@ public class ScreenCam : MonoBehaviour {
 		if (camera.fieldOfView != fov) {
 			camera.fieldOfView = fov;	
 		}
+		float aspect = width / height;
+		if (camera.aspect != aspect){
+			camera.aspect = aspect;	
+		}
 		
 		//Set obliqueness
 		Matrix4x4 mat = camera.projectionMatrix;
