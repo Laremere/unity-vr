@@ -7,6 +7,9 @@ public class Portal : MonoBehaviour {
 	public Transform otherPortal;
 	
 	public void OnWillRenderObject(){
+		if (renderingPortal){
+			return;
+		}
 		
 	}
 }
